@@ -8,7 +8,7 @@ COPY . .
 
 RUN make clean \
  && make CFLAGS="-Wall -std=c99 -Os" LDFLAGS="-static -s" \
- && ldd /src/microsocks 2>&1 | grep -q "not a dynamic executable"
+ && ! readelf -d /src/microsocks | grep -q NEEDED
 
 FROM scratch
 
